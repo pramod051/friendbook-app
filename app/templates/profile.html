@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head><title>Your Profile</title></head>
+<body>
+  <h1>Welcome, {{ current_user.username }}</h1>
+  <a href="{{ url_for('main.logout') }}">Logout</a>
+  <form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    {{ form.content.label }}<br>
+    {{ form.content(rows=4, cols=40) }}<br>
+    {{ form.image.label }} {{ form.image() }}<br>
+    {{ form.submit() }}
+  </form>
+  <h2>Your Posts</h2>
+  {% for post in posts %}
+    <div>
+      <p>{{ post.content }}</p>
+      {% if post.image %}
+        <img src="{{ url_for('static', filename='uploads/' ~ post.image) }}" width="200">
+      {% endif %}
+    </div>
+  {% endfor %}
+</body>
+</html>
